@@ -1,4 +1,3 @@
-import kotlin.concurrent.timerTask
 import kotlin.math.pow
 import kotlin.time.measureTime
 
@@ -21,9 +20,9 @@ fun main() {
         return if (matches == 0) {
             1 + if (copy) 0 else part2(input.drop(1))
         } else {
-            if (copy) 1 else part2(input.drop(1)) + 1 + (1..matches).sumOf {
+            (1..matches).sumOf {
                 part2(input.drop(it), true)
-            }
+            } + if (copy) 1 else part2(input.drop(1)) + 1
         }
     }
 
@@ -34,8 +33,7 @@ fun main() {
 
     val input = readInput("Day04")
     part1(input).println()
-    val time = measureTime {
+    measureTime {
         part2(input).println()
-    }
-    time.println()
+    }.also { println(it) }
 }
