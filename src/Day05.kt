@@ -1,4 +1,3 @@
-import kotlinx.coroutines.*
 import java.util.SortedSet
 import kotlin.time.measureTime
 
@@ -24,16 +23,6 @@ class MapTable(ranges: List<Pair<LongRange, LongRange>>) {
             if (sourceRang.last > num) return num
         }
         return num
-    }
-}
-
-suspend fun <T, R> List<T>.mapAsync(op: suspend (T) -> R): List<R> {
-    return coroutineScope {
-        withContext(Dispatchers.Default) {
-            map {
-                async { op(it) }
-            }.awaitAll()
-        }
     }
 }
 
