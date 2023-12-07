@@ -96,9 +96,7 @@ fun main() {
         return input
             .map(::toHand)
             .sortedWith(handComparator.reversed())
-            .mapIndexed { index, hand ->
-                (index + 1) * hand.wager
-            }
+            .mapIndexed { index, hand -> (index + 1) * hand.wager }
             .sum()
     }
 
@@ -106,9 +104,7 @@ fun main() {
         return input
             .map(::toHandWithJokers)
             .sortedWith(handComparatorJokers.reversed())
-            .mapIndexed { index, hand ->
-                (index + 1) * hand.wager
-            }
+            .mapIndexed { index, hand -> (index + 1) * hand.wager }
             .sum()
     }
 
