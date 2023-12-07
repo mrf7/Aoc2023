@@ -11,7 +11,6 @@ enum class Field {
     infix fun mapTo(other: Field) = "${this.name}-TO-${other.name}"
 }
 
-fun <T> List<T>.split() = first() to drop(1)
 fun Map<String, MapTable>.getOrValue(key: String, value: Long) =
     get(key)?.lookUp(value) ?: error("no lookup table for $key")
 

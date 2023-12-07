@@ -5,6 +5,10 @@ import kotlin.io.path.readLines
 import kotlin.io.path.readText
 
 /**
+ * Splits a list into head and tail components
+ */
+fun <T> List<T>.split() = first() to drop(1)
+/**
  * Reads lines from the given input txt file.
  */
 fun readInput(name: String) = Path("src/inputs/$name.txt").readLines()
