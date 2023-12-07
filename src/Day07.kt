@@ -107,7 +107,6 @@ fun main() {
             .map(::toHandWithJokers)
             .sortedWith(handComparatorJokers.reversed())
             .mapIndexed { index, hand ->
-                println("$hand wins ${(index + 1) * hand.wager}")
                 (index + 1) * hand.wager
             }
             .sum()
@@ -115,10 +114,10 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day07_test")
-//    check(part1(testInput) == 6440)
-//    check(part2(testInput) == 5905)
+    check(part1(testInput) == 6440)
+    check(part2(testInput) == 5905)
 
     val input = readInput("Day07")
-//    part1(input).println()
+    part1(input).println()
     part2(input).println()
 }
