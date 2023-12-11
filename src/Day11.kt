@@ -1,4 +1,6 @@
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 fun main() {
     fun List<String>.expandSpacetime(): List<String> {
@@ -55,7 +57,9 @@ fun main() {
         return paths.sumOf { it.second }
     }
 
-    fun part2(input: List<String>, expandSize: Int = 1_000_000): Int {
+    fun numsBetween(first: Int, second: Int):IntRange = min(first, second)..max(first,second)
+
+    fun part2(input: List<String>, expandSize: Int = 1_000_000): Long {
         val galaxies = input.flatMapIndexed { row: Int, line: String ->
             line.mapIndexedNotNull { index, c -> if (c == '#' || c.isDigit()) index else null }
                 .map { col -> row to col }
@@ -64,15 +68,15 @@ fun main() {
 
         val galaxyPairs = galaxies.combinations()
         val paths = galaxyPairs.map { (first, second) ->
-            val xTraverse = first.x..second.x
-            val yTraverse = first.y..second.y
-            val emptyX = xTraverse.count { it in emptyCols }
-            val emptyY = yTraverse.count { it in emptyRows }
+            val xTraverse = numsBetween(first.x, second.x)
+            val yTraverse = numsBetween(first.y, second.y)
+            val emptyX = xTraverse.count { it in emptyRows }
+            val emptyY = yTraverse.count { it in emptyCols }
             Pair(
                 first.num,
                 second.num
-            ) to abs(first.x - second.x) + abs(first.y - second.y) + ((emptyX + emptyY) * (expandSize - 1))
-        }.alsoPrint()
+            ) to abs(first.x - second.x).toLong() + abs(first.y - second.y) + ((emptyX + emptyY) * (expandSize - 1)).toLong()
+        }
         return paths.sumOf { it.second }
 
     }
@@ -88,5 +92,5 @@ fun main() {
     checkEqual(8410, part2(testInput, 100))
     val input = readInput("Day11")
     part1(input).println()
-//    part2(input).println()
+    part2(input).println()
 }

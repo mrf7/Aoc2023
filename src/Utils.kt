@@ -29,7 +29,7 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
-fun <T> checkEqual(
+inline fun <T> checkEqual(
     expected: T,
     actual: T,
     message: (exp: T, act: T) -> String = { exp, act -> "Expected: $exp but got $act" }
