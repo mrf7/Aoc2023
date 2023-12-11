@@ -41,4 +41,5 @@ fun <T> List<T>.alsoPrint(): List<T> {
     println(joinToString("\n"))
     return this
 }
-fun Any.alsoPrint() = also { this.println() }
+
+fun <T> T.alsoPrint() = also { this.println() }
