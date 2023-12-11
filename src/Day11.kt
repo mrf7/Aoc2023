@@ -83,10 +83,6 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day11_test")
-    checkEqual(
-        testInput.expandSpacetime().joinToString("\n"),
-        readInput("Day11_testExpanded").joinToString("\n")
-    ) { exp, act -> "Wanted\n$exp\ngot\n$act" }
     checkEqual(374, part1(testInput))
     checkEqual(1030, part2(testInput, 10))
     checkEqual(8410, part2(testInput, 100))
