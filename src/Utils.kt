@@ -37,7 +37,7 @@ inline fun <T> checkEqual(
     check(expected == actual) { message(expected, actual) }
 }
 
-fun <T> List<T>.alsoPrintLines(): List<T> {
+fun <T> Collection<T>.alsoPrintLines(): Collection<T> {
     println(joinToString("\n"))
     return this
 }
