@@ -3,32 +3,33 @@ import kotlin.math.min
 fun main() {
     fun parseInput(input: String) = input.split("\n\n").map { it.split("\n") }
 
-    fun findHorizontalMirrorOrNull(map: List<String>) = (0..<map.size - 1).firstOrNull {
-        println("slicing at $it")
-        val above = map.slice(0..it).alsoPrintLines()
-        println("---------------------------")
-        val below = map.slice(it + 1..<map.size).alsoPrintLines()
+    fun findHorizontalMirror(map: List<String>) = (0..<map.size - 1).firstOrNull {
+        val above = map.slice(0..it)
+        val below = map.slice(it + 1..<map.size)
         val checkSize = min(above.size, below.size)
-        println("Checking these")
-        val match =
-            above.takeLast(checkSize).alsoPrintLines().reversed().also { println("-".repeat(10)) } == below.take(
-                checkSize
-            ).alsoPrintLines()
-        println("*".repeat(25))
+        val match = above.takeLast(checkSize).reversed() == below.take(checkSize)
         match
-    }?.let { it + 1 }
+    }?.let { it + 1 } ?: 0
 
-    fun findVerticalMirrorOrNull(map: List<String>) = (0..<map.first().length - 1).firstOrNull { index ->
+    fun findVerticalMirror(map: List<String>) = (0..<map.first().length - 1).firstOrNull { index ->
+        println("slicing at $index")
         val left = map.map { it.take(index + 1) }
         val right = map.map { it.drop(index + 1) }
-        TODO()
-    }
+        left.zip(right).map { (l, r) -> "$l|$r" }.alsoPrintLines()
+        val checkSize = min(left.first().length, right.first().length)
+        val checkLeft = left.map { it.takeLast(checkSize) }
+        val checkRight = right.map { it.take(checkSize).reversed() }
+        println(checkRight == checkLeft)
+
+        println("\n" + "*".repeat(30) + "\n")
+        checkLeft == checkRight
+    }?.let { it + 1 } ?: 0
 
     fun part1(input: String): Int {
         val maps = parseInput(input)
-        val map = maps[1]
-        val mirror = findHorizontalMirrorOrNull(map)
-        return ((mirror ?: 0)) * 100
+        return maps.map { map ->
+            (findHorizontalMirror(map) * 100) + findVerticalMirror(map)
+        }.alsoPrint().sum()
     }
 
     fun part2(input: String): Int {
@@ -43,5 +44,5 @@ fun main() {
 
     val input = readInputAsString("Day13")
     part1(input).println()
-    part2(input).println()
+//    part2(input).println()
 }
