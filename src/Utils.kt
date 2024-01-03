@@ -15,7 +15,7 @@ fun <T> List<T>.split() = first() to drop(1)
  */
 fun readInput(name: String) = Path("src/inputs/$name.txt").readLines()
 
-fun readInputAsString(name: String) = Path("src/inputs/$name.txt").readText()
+fun readInputAsString(name: String) = Path("src/inputs/$name.txt").readText().replace("\r","")
 
 /**
  * Converts string to md5 hash.
