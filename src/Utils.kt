@@ -13,9 +13,9 @@ fun <T> List<T>.split() = first() to drop(1)
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String) = Path("src/inputs/$name.txt").readLines()
+fun readInput(name: String) = Path("src/inputs/$name.txt").readLines().dropLastWhile { it.isBlank() }
 
-fun readInputAsString(name: String) = Path("src/inputs/$name.txt").readText().replace("\r","")
+fun readInputAsString(name: String) = Path("src/inputs/$name.txt").readText().replace("\r", "").trim()
 
 /**
  * Converts string to md5 hash.
@@ -42,4 +42,4 @@ fun <T> Collection<T>.alsoPrintLines(): Collection<T> {
     return this
 }
 
-fun <T> T.alsoPrint() = also { this.println() }
+fun <T> T.alsoPrint(op: (T) -> Any? = { it.toString() }) = also { op(this).println() }
